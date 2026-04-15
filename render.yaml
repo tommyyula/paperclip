@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: paperclip-web
+    env: node
+    plan: starter
+    buildCommand: pnpm install && pnpm build
+    startCommand: cd server && node --import ./node_modules/tsx/dist/loader.mjs dist/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3100
+      - key: HOST
+        value: 0.0.0.0
+      - key: SERVE_UI
+        value: true
+      - key: PAPERCLIP_DEPLOYMENT_MODE
+        value: authenticated
+      - key: PAPERCLIP_DEPLOYMENT_EXPOSURE
+        value: public
+    healthCheckPath: /api/health
